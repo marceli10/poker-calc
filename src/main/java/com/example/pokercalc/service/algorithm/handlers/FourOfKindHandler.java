@@ -1,20 +1,21 @@
-package com.example.pokercalc.service.algorithm;
+package com.example.pokercalc.service.algorithm.handlers;
 
 import com.example.pokercalc.model.card.Card;
-import com.example.pokercalc.model.card.CardValue;
 import com.example.pokercalc.model.card.Combination;
 import com.example.pokercalc.service.exceptions.CombinationNotFound;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
+import static com.example.pokercalc.model.card.Combination.FOUR_OF_A_KIND;
 import static java.util.stream.Collectors.groupingBy;
 
-public class FourOfAKindHandler extends BaseCombinationHandler {
+public class FourOfKindHandler extends BaseCombinationHandler {
 
+    @Override
     public Combination handleCombination(List<Card> cards) throws CombinationNotFound {
-        return null;
+        if (isFourOfAKind(cards))
+            return FOUR_OF_A_KIND;
+        return super.handleCombination(cards);
     }
 
     private boolean isFourOfAKind(List<Card> cards) {

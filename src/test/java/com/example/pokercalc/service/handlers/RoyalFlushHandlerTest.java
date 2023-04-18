@@ -1,8 +1,9 @@
-package com.example.pokercalc.service.algorithm;
+package com.example.pokercalc.service.handlers;
 
 import com.example.pokercalc.factory.CardBuilder;
 import com.example.pokercalc.model.card.Card;
 import com.example.pokercalc.model.card.Combination;
+import com.example.pokercalc.service.algorithm.handlers.RoyalFlushHandler;
 import com.example.pokercalc.service.exceptions.CombinationNotFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,22 +32,22 @@ class RoyalFlushHandlerTest {
     @MethodSource("validRoyalFlushCardCombinations")
     void shouldPassWithValidCardsCombination(String name, List<Card> validCardsCombination) {
         // given
-        //
+        // when
         Combination isRoyalFlushCombination = handler.handleCombination(validCardsCombination);
 
-        // expect
+        // then
         assertThat(isRoyalFlushCombination).isEqualTo(ROYAL_FLUSH);
     }
 
     @ParameterizedTest(name = "{index}{0}")
     @MethodSource("invalidRoyalFlushCardCombinations")
-    void shouldNotPassWithValidCardsCombination(String name, List<Card> invalidCardsCombination) {
+    void shouldFailWhenInvalidCardCombination(String name, List<Card> invalidCardsCombination) {
         // given
-        //
+        // when
         Throwable thrown = assertThrows(CombinationNotFound.class, () -> handler.handleCombination(invalidCardsCombination));
 
-        // expect
-        assertThat(thrown).isEqualTo(CombinationNotFound.class);
+        // then
+        assertThat(thrown).isInstanceOf(CombinationNotFound.class);
     }
 
 

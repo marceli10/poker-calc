@@ -1,14 +1,11 @@
-package com.example.pokercalc.service.algorithm;
+package com.example.pokercalc.service.algorithm.handlers;
 
 import com.example.pokercalc.model.card.Card;
-import com.example.pokercalc.model.card.CardValue;
 import com.example.pokercalc.model.card.Combination;
 import com.example.pokercalc.service.exceptions.CombinationNotFound;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.example.pokercalc.model.card.CardValue.*;
 import static java.util.stream.Collectors.groupingBy;

@@ -1,4 +1,4 @@
-package com.example.pokercalc.service.algorithm;
+package com.example.pokercalc.service.algorithm.handlers;
 
 import com.example.pokercalc.model.card.Card;
 import com.example.pokercalc.model.card.Combination;

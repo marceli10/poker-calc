@@ -1,4 +1,4 @@
-package com.example.pokercalc.service.algorithm;
+package com.example.pokercalc.service.algorithm.handlers;
 
 import com.example.pokercalc.model.card.Card;
 import com.example.pokercalc.model.card.CardValue;
@@ -7,17 +7,16 @@ import com.example.pokercalc.service.exceptions.CombinationNotFound;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 
-public class FullHouseHandler extends BaseCombinationHandler{
+public class FullHouseHandler extends BaseCombinationHandler {
+
     @Override
-    public Combination handleCombination (List<Card> cards) throws CombinationNotFound {
+    public Combination handleCombination(List<Card> cards) throws CombinationNotFound {
             if (isFullHouse(cards))
                 return Combination.FULL_HOUSE;
             return super.handleCombination(cards);
-        }
     }
 
   private boolean isFullHouse(List<Card> cards){
