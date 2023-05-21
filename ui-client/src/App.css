@@ -1,0 +1,22 @@
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+}
+
+.player-hands-container {
+    display: flex;
+    width: 100%;
+    height: 30%;
+    justify-content: space-around;
+}
+
+.dealer-hand-container {
+    display: flex;
+    width: 100%;
+    height: 40%;
+    justify-content: center;
+    align-items: center;
+}
