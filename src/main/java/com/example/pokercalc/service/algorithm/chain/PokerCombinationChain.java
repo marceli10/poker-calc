@@ -3,9 +3,11 @@ package com.example.pokercalc.service.algorithm.chain;
 import com.example.pokercalc.model.card.Card;
 import com.example.pokercalc.model.card.Combination;
 import com.example.pokercalc.service.algorithm.handlers.*;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class PokerCombinationChain {
     private final CombinationHandler combinationHandler;
 

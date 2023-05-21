@@ -1,0 +1,78 @@
+{
+    "firstPlayer": {
+        "firstCard": {
+            "color": "DIAMOND",
+            "value": 9
+        },
+        "secondCard": {
+            "color": "DIAMOND",
+            "value": 10
+        }
+    },
+    "secondPlayer": {
+        "firstCard": {
+            "color": "SPADE",
+            "value": 6
+        },
+        "secondCard": {
+            "color": "HEART",
+            "value": 12
+        }
+    },
+    "thirdPlayer": {
+        "firstCard": {
+            "color": "CLUB",
+            "value": 1
+        },
+        "secondCard": {
+            "color": "CLUB",
+            "value": 2
+        }
+    },
+    "fourthPlayer": {
+        "firstCard": {
+            "color": "CLUB",
+            "value": 8
+        },
+        "secondCard": {
+            "color": "SPADE",
+            "value": 0
+        }
+    },
+    "fifthPlayer": {
+        "firstCard": {
+            "color": "SPADE",
+            "value": 11
+        },
+        "secondCard": {
+            "color": "DIAMOND",
+            "value": 7
+        }
+    },
+    "sixthPlayer": {
+        "firstCard": {
+            "color": "HEART",
+            "value": 5
+        },
+        "secondCard": {
+            "color": "HEART",
+            "value": 11
+        }
+    },
+    "cardsOnTable": {
+        "cards": [
+            {
+                "color": "CLUB",
+                "value": 0
+            },
+            {
+                "color": "DIAMOND",
+                "value": 1
+            },
+            {
+                "color": "HEART",
+                "value": 6
+            }
+        ]
+    }
+}

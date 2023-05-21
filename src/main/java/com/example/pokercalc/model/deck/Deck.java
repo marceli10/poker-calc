@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Deck {
-
     private final List<Card> deck = new LinkedList<>();
 
     public Deck() {
