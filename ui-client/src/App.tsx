@@ -1,164 +1,204 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import PlayerHand from './components/player-hand/PlayerHand';
 import './App.css';
-import * as cardName from './AllImages';
-import {default as CardComponent}  from './components/card/Card';
-import {back_card, clubs_ace} from "./AllImages";
-
-type Card = {
-    value: string;
-    color: string;
-};
-
-type PlayerHand = {
-    firstCard: Card,
-    secondCard: Card
-};
+import DealerHand from './components/dealer-hand/DealerHand';
+import RecButton from './components/rec-button/RecButton';
 
 function App() {
+
+    const [cardsOnTable, setCardsOnTable] = useState({
+        cards: [
+            {
+                value: '',
+                color: ''
+            },
+            {
+                value: '',
+                color: ''
+            },
+            {
+                value: '',
+                color: ''
+            },
+            {
+                value: '',
+                color: ''
+            },
+            {
+                value: '',
+                color: ''
+            }
+        ]
+    })
 
     const [players, setPlayers] = useState({
         firstPlayer: {
             firstCard: {
-                value: back_card,
+                value: '',
                 color: ''
             },
             secondCard: {
-                value: back_card,
+                value: '',
                 color: ''
             }
         },
 
         secondPlayer: {
             firstCard: {
-                value: back_card,
+                value: '',
                 color: ''
             },
             secondCard: {
-                value: back_card,
+                value: '',
                 color: ''
             }
         },
 
         thirdPlayer: {
             firstCard: {
-                value: back_card,
-                    color: ''
+                value: '',
+                color: ''
             },
             secondCard: {
-                value: back_card,
-                    color: ''
+                value: '',
+                color: ''
             }
         },
 
         fourthPlayer: {
             firstCard: {
-                value: back_card,
-                    color: ''
+                value: '',
+                color: ''
             },
             secondCard: {
-                value: back_card,
+                value: '',
                 color: ''
             }
         },
 
         fifthPlayer: {
             firstCard: {
-                value: back_card,
+                value: '',
                 color: ''
             },
             secondCard: {
-                value: back_card,
+                value: '',
                 color: ''
             }
         },
 
         sixthPlayer: {
             firstCard: {
-                value: back_card,
+                value: '',
                 color: ''
             },
             secondCard: {
-                value: back_card,
+                value: '',
                 color: ''
             }
         }
     });
 
-    const changeFirstCard = (event) => {
-        const {name} = event.target;
-
-        setPlayers(prevInfo => {
-            return {
-                ...prevInfo,
-                [name]: {
-                    ...prevInfo[name],
-                    firstCard: {
-                        ...prevInfo[name].firstCard,
-                        value: clubs_ace
-                    }
-                }
+    const handleDealerCardChange = (cardIndex: number, value: string, color: string) => {
+        setCardsOnTable(prevCards => {
+            const updatedCards = [...cardsOnTable.cards];
+            updatedCards[cardIndex] = {
+                value: value,
+                color: color
             }
-        });
+            
+            return {
+                ...prevCards,
+                cards: updatedCards
+            }
+        })
     }
 
-    const changeSecondCard = (event) => {
-        const {name} = event.target;
-
-        setPlayers(prevInfo => {
+    const handleCardClick = (player: string, card: string, value: string, color: string) => {
+        setPlayers(prevCards => {
             return {
-                ...prevInfo,
-                [name]: {
-                    ...prevInfo[name],
-                    secondCard: {
-                        ...prevInfo[name].secondCard,
-                        value: clubs_ace
+                ...prevCards,
+                [player]: {
+                    ...prevCards[player],
+                    [card]: {
+                        color: color,
+                        value: value
                     }
                 }
             }
-        });
+        })
+    }
+
+    const handleCalculate = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        const cardsOnTableToSend = cardsOnTable.cards.filter(cards => cards.color !== '' && cards.value !== '');
+
+        console.log(players);
+        console.log(cardsOnTableToSend);
     }
 
     return (
         <div className="main-wrapper">
             <div className="dealer-hand-container">
-                <h1>CISZA! Programuję.</h1>
+                <DealerHand
+                    cards={cardsOnTable.cards}
+                    handleCardClick={handleDealerCardChange}
+                    player='dealer'
+                />
             </div>
+            <div className='player-hands-container'>
+                <PlayerHand
+                    firstCard={players.firstPlayer.firstCard}
+                    secondCard={players.firstPlayer.secondCard}
+                    handleCardClick={handleCardClick}
+                    playerName='Player 1'
+                    player='firstPlayer'
+                />
 
-            <div className="player-hands-container">
-                <PlayerHand>
-                    <CardComponent onClick={changeFirstCard} name={players.firstPlayer} src={players.firstPlayer.firstCard?.value}/>
-                    <CardComponent onClick={changeSecondCard} name={players.firstPlayer} src={players.firstPlayer.secondCard?.value}/>
-                </PlayerHand>
+                <PlayerHand
+                    firstCard={players.secondPlayer.firstCard}
+                    secondCard={players.secondPlayer.secondCard}
+                    playerName='Player 2'
+                    handleCardClick={handleCardClick}
+                    player='secondPlayer'
+                />
 
-                <PlayerHand>
-                    <CardComponent src={players.secondPlayer.firstCard.value}/>
-                    <CardComponent src={players.secondPlayer.secondCard.value}/>
-                </PlayerHand>
+                <PlayerHand
+                    firstCard={players.thirdPlayer.firstCard}
+                    secondCard={players.thirdPlayer.secondCard}
+                    playerName='Player 3'
+                    handleCardClick={handleCardClick}
+                    player='thirdPlayer'
+                />
 
-                <PlayerHand>
-                    <CardComponent src={players.thirdPlayer.firstCard.value}/>
-                    <CardComponent src={players.thirdPlayer.firstCard.value}/>
-                </PlayerHand>
+                <PlayerHand
+                    firstCard={players.fourthPlayer.firstCard}
+                    secondCard={players.fourthPlayer.secondCard}
+                    playerName='Player 4'
+                    handleCardClick={handleCardClick}
+                    player='fourthPlayer'
+                />
 
-                <PlayerHand>
-                    <CardComponent src={players.fourthPlayer.firstCard.value}/>
-                    <CardComponent src={players.fourthPlayer.firstCard.value}/>
-                </PlayerHand>
+                <PlayerHand
+                    firstCard={players.fifthPlayer.firstCard}
+                    secondCard={players.fifthPlayer.secondCard}
+                    playerName='Player 5'
+                    handleCardClick={handleCardClick}
+                    player='fifthPlayer'
+                />
 
-                <PlayerHand>
-                    <CardComponent src={players.fifthPlayer.firstCard.value}/>
-                    <CardComponent src={players.fifthPlayer.firstCard.value}/>
-                </PlayerHand>
+                <PlayerHand
+                    firstCard={players.sixthPlayer.firstCard}
+                    secondCard={players.sixthPlayer.secondCard}
+                    playerName='Player 6'
+                    handleCardClick={handleCardClick}
+                    player='sixthPlayer'
+                />
 
-                <PlayerHand>
-                    <CardComponent src={players.sixthPlayer.firstCard.value}/>
-                    <CardComponent src={players.sixthPlayer.firstCard.value}/>
-                </PlayerHand>
             </div>
-
-            <div className="submit-button">
-                <button>Calculate</button>
+            <div className='button-container'>
+                <RecButton handleClick={handleCalculate} >Calculate</RecButton>
             </div>
         </div>
     );

@@ -1,14 +1,14 @@
-.player-box {
-    width: 15%;
-    height: 70%;
+.player-hand {
+    width: 200px;
+    height: 250px;
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.4);
-
+    justify-content: space-around;
+    flex-direction: column;
 }
 
-.player-box img {
-    width: 40%;
-    object-fit: contain;
+.cards-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

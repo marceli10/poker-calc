@@ -1,0 +1,15 @@
+.dealer-hand {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 1000px;
+    height: 50%;
+}
+
+.dealer-cards-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}

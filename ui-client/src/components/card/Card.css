@@ -1,3 +1,78 @@
-.invisible {
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+}
 
+.app-cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.image-choose-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background: rgba(10, 83, 0, 0.8);
+    border: 3px solid rgb(197, 197, 0);
+    border-radius: 25px;
+}
+
+.choose-header {
+    font-size: 2.5rem;
+    margin-top: 1rem;
+}
+
+.choosers-container {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.image-choose-container .rec-button {
+    margin-bottom: 1rem;
+}
+
+.choosers-container select {
+    width: 150px;
+    font-size: 1.5rem;
+    padding: 5px;
+    background: none;
+    color: white;
+    border: 3px solid rgb(197, 197, 0);
+    text-align: center;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Kanit';
+}
+
+.choosers-container select:hover {
+    border: 3px solid rgb(253, 253, 55);
+}
+
+.choosers-container select:active {
+    background-color: rgb(253, 253, 55);
+}
+
+.choosers-container select:focus {
+    outline: none;
+}
+
+.choosers-container select option {
+    background: rgba(10, 83, 0, 1.0);
 }
