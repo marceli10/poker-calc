@@ -1,104 +1,207 @@
-import React, { useState } from 'react'
-import PlayerHand from './components/player-hand/PlayerHand';
+import React, {useState} from 'react'
+import PlayerHand, {CardData, PlayerHandData} from './components/player-hand/PlayerHand';
 import './App.css';
 import DealerHand from './components/dealer-hand/DealerHand';
 import RecButton from './components/rec-button/RecButton';
+import axios from "axios";
+import _ from "lodash";
+
+
+const initialPlayersState = {
+    firstPlayer: {
+        firstCard: {
+            value: '',
+            color: ''
+        },
+        secondCard: {
+            value: '',
+            color: ''
+        }
+    },
+
+    secondPlayer: {
+        firstCard: {
+            value: '',
+            color: ''
+        },
+        secondCard: {
+            value: '',
+            color: ''
+        }
+    },
+
+    thirdPlayer: {
+        firstCard: {
+            value: '',
+            color: ''
+        },
+        secondCard: {
+            value: '',
+            color: ''
+        }
+    },
+
+    fourthPlayer: {
+        firstCard: {
+            value: '',
+            color: ''
+        },
+        secondCard: {
+            value: '',
+            color: ''
+        }
+    },
+
+    fifthPlayer: {
+        firstCard: {
+            value: '',
+            color: ''
+        },
+        secondCard: {
+            value: '',
+            color: ''
+        }
+    },
+
+    sixthPlayer: {
+        firstCard: {
+            value: '',
+            color: ''
+        },
+        secondCard: {
+            value: '',
+            color: ''
+        }
+    }
+};
+const initialCardsOnTableState = {
+    cards: [
+        {
+            value: '',
+            color: ''
+        },
+        {
+            value: '',
+            color: ''
+        },
+        {
+            value: '',
+            color: ''
+        },
+        {
+            value: '',
+            color: ''
+        },
+        {
+            value: '',
+            color: ''
+        }
+    ]
+};
+
+const initialPlayersStateWithValues = {
+    firstPlayer: {
+        firstCard: {
+            color: 'HEART',
+            value: 'TWO'
+        },
+        secondCard: {
+            color: 'SPADE',
+            value: 'THREE'
+        }
+    },
+
+    secondPlayer: {
+        firstCard: {
+            value: 'FOUR',
+            color: 'SPADE'
+        },
+        secondCard: {
+            value: 'FIVE',
+            color: 'SPADE'
+        }
+    },
+
+    thirdPlayer: {
+        firstCard: {
+            value: 'ACE',
+            color: 'HEART'
+        },
+        secondCard: {
+            value: 'ACE',
+            color: 'SPADE'
+        }
+    },
+
+    fourthPlayer: {
+        firstCard: {
+            value: 'KING',
+            color: 'SPADE'
+        },
+        secondCard: {
+            value: 'KING',
+            color: 'CLUB'
+        }
+    },
+
+    fifthPlayer: {
+        firstCard: {
+            value: 'QUEEN',
+            color: 'CLUB'
+        },
+        secondCard: {
+            value: 'JACK',
+            color: 'CLUB'
+        }
+    },
+
+    sixthPlayer: {
+        firstCard: {
+            value: 'SEVEN',
+            color: 'DIAMOND'
+        },
+        secondCard: {
+            value: 'SIX',
+            color: 'DIAMOND'
+        }
+    }
+};
+
+type RequestBody = {
+    firstPlayer: PlayerHandData,
+    secondPlayer: PlayerHandData,
+    thirdPlayer: PlayerHandData,
+    fourthPlayer: PlayerHandData,
+    fifthPlayer: PlayerHandData,
+    sixthPlayer: PlayerHandData,
+    cardsOnTable?: CardData[]
+};
+
+type ChanceStatistics = {
+    combinationChances: {
+        PAIR: number,
+        TWO_PAIRS: number,
+        THREE_OF_A_KING: number,
+        STRAIGHT: number,
+        FLUSH: number,
+        FULL_HOUSE: number,
+        FOUR_OF_A_KING: number,
+        STRAIGHT_FLUSH: number,
+        ROYAL_FLUSH: number,
+    },
+    firstPlayerChance: number,
+    secondPlayerChance: number,
+    thirdPlayerChance: number,
+    fourthPlayerChance: number,
+    fifthPlayerChance: number,
+    sixthPlayerChance: number,
+}
 
 function App() {
 
-    const [cardsOnTable, setCardsOnTable] = useState({
-        cards: [
-            {
-                value: '',
-                color: ''
-            },
-            {
-                value: '',
-                color: ''
-            },
-            {
-                value: '',
-                color: ''
-            },
-            {
-                value: '',
-                color: ''
-            },
-            {
-                value: '',
-                color: ''
-            }
-        ]
-    })
-
-    const [players, setPlayers] = useState({
-        firstPlayer: {
-            firstCard: {
-                value: '',
-                color: ''
-            },
-            secondCard: {
-                value: '',
-                color: ''
-            }
-        },
-
-        secondPlayer: {
-            firstCard: {
-                value: '',
-                color: ''
-            },
-            secondCard: {
-                value: '',
-                color: ''
-            }
-        },
-
-        thirdPlayer: {
-            firstCard: {
-                value: '',
-                color: ''
-            },
-            secondCard: {
-                value: '',
-                color: ''
-            }
-        },
-
-        fourthPlayer: {
-            firstCard: {
-                value: '',
-                color: ''
-            },
-            secondCard: {
-                value: '',
-                color: ''
-            }
-        },
-
-        fifthPlayer: {
-            firstCard: {
-                value: '',
-                color: ''
-            },
-            secondCard: {
-                value: '',
-                color: ''
-            }
-        },
-
-        sixthPlayer: {
-            firstCard: {
-                value: '',
-                color: ''
-            },
-            secondCard: {
-                value: '',
-                color: ''
-            }
-        }
-    });
-
+    const [cardsOnTable, setCardsOnTable] = useState(initialCardsOnTableState);
+    const [players, setPlayers] = useState(initialPlayersState);
+    const [playersChances, setPlayersChances] = useState<ChanceStatistics>();
     const handleDealerCardChange = (cardIndex: number, value: string, color: string) => {
         setCardsOnTable(prevCards => {
             const updatedCards = [...cardsOnTable.cards];
@@ -106,7 +209,6 @@ function App() {
                 value: value,
                 color: color
             }
-            
             return {
                 ...prevCards,
                 cards: updatedCards
@@ -129,13 +231,16 @@ function App() {
         })
     }
 
-    const handleCalculate = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleCalculate = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        const cardsOnTableToSend: CardData[] = cardsOnTable.cards.filter(cards => cards.color && cards.value);
+        const requestBody: RequestBody = {
+            ...players,
+            cardsOnTable: !_.isEmpty(cardsOnTableToSend) ? cardsOnTableToSend : undefined
+        };
 
-        const cardsOnTableToSend = cardsOnTable.cards.filter(cards => cards.color !== '' && cards.value !== '');
-
-        console.log(players);
-        console.log(cardsOnTableToSend);
+        await axios.post('http://localhost:8080/api/poker-calc', requestBody)
+            .then(response => setPlayersChances(response.data))
     }
 
     return (
@@ -198,8 +303,34 @@ function App() {
 
             </div>
             <div className='button-container'>
-                <RecButton handleClick={handleCalculate} >Calculate</RecButton>
+                <RecButton handleClick={handleCalculate}>Calculate</RecButton>
             </div>
+
+            {playersChances && (
+             <div>
+                 Players:
+                <ul>
+                    <li>
+                        first player: {playersChances.firstPlayerChance}
+                    </li>
+                    <li>
+                        second player: {playersChances.secondPlayerChance}
+                    </li>
+                    <li>
+                        third player: {playersChances.thirdPlayerChance}
+                    </li>
+                    <li>
+                        fourth player: {playersChances.fourthPlayerChance}
+                    </li>
+                    <li>
+                        fifth player: {playersChances.fifthPlayerChance}
+                    </li>
+                    <li>
+                        sixth player: {playersChances.sixthPlayerChance}
+                    </li>
+                </ul>
+             </div>
+            )}
         </div>
     );
 }

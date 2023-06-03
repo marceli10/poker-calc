@@ -45,7 +45,7 @@ const Card: React.FC<CardProps> = ({ src, handleCardClick, handleDealerCardClick
         if (player === 'dealer') {
             handleDealerCardClick(cardIndex, newValue, newColor);
         } else {
-            handleCardClick(player, card, newColor, newValue);
+            handleCardClick(player, card, newValue, newColor);
         }
     }
 

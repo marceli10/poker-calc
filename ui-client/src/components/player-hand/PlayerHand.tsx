@@ -3,10 +3,15 @@ import "./PlayerHand.css";
 import CardField from '../card-field/CardField';
 import Card from '../card/Card';
 
-interface CardData {
+export type CardData = {
     value: string;
     color: string
-}
+};
+
+export type PlayerHandData = {
+    firstCard: CardData,
+    secondCard: CardData
+};
 
 interface PlayerHandProps {
     playerName: string;
@@ -23,11 +28,11 @@ const PlayerHand: React.FC<PlayerHandProps> = ({ playerName, firstCard, secondCa
             <h2>{playerName}</h2>
             <div className='cards-wrapper'>
                 <CardField>
-                    <Card src={`${firstCard.value}_${firstCard.color}.svg`} player={player} card='firstCard' handleCardClick={handleCardClick}/>
+                    <Card src={`${firstCard.color}_${firstCard.value}.svg`} player={player} card='firstCard' handleCardClick={handleCardClick}/>
                 </CardField>
 
                 <CardField>
-                    <Card src={`${secondCard.value}_${secondCard.color}.svg`} player={player} card='secondCard' handleCardClick={handleCardClick}/>
+                    <Card src={`${secondCard.color}_${secondCard.value}.svg`} player={player} card='secondCard' handleCardClick={handleCardClick}/>
                 </CardField>
             </div>
             <p>Chance: </p>

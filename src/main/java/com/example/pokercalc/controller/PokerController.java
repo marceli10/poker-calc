@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(value = "http://localhost:5173")
 public class PokerController {
 
     private final SimulationService simulationService;
@@ -19,7 +20,7 @@ public class PokerController {
         this.simulationService = simulationService;
     }
 
-    @GetMapping("/poker-calc")
+    @PostMapping("/poker-calc")
     public ResponseEntity<?> calculateChancesOnStream(@RequestBody PokerData pokerData) {
         return ResponseEntity
                 .ok()

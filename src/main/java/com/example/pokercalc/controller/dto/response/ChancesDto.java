@@ -9,12 +9,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public record ChancesDto(
-        PlayerChance firstPlayerChance,
-        PlayerChance secondPlayerChance,
-        PlayerChance thirdPlayerChance,
-        PlayerChance fourthPlayerChance,
-        PlayerChance fifthPlayerChance,
-        PlayerChance sixthPlayerChance,
+        double firstPlayerChance,
+        double secondPlayerChance,
+        double thirdPlayerChance,
+        double fourthPlayerChance,
+        double fifthPlayerChance,
+        double sixthPlayerChance,
         Map<Object, Object> combinationsChances
 ) {
     public static ChancesDto from(
@@ -26,12 +26,12 @@ public record ChancesDto(
                 .reduce(0, Integer::sum);
 
         return new ChancesDto(
-                new PlayerChance(((double) playersWonStatistics.get(0).getRoundsWon() / allPossibleRounds) * 100),
-                new PlayerChance(((double) playersWonStatistics.get(1).getRoundsWon() / allPossibleRounds) * 100),
-                new PlayerChance(((double) playersWonStatistics.get(2).getRoundsWon() / allPossibleRounds) * 100),
-                new PlayerChance(((double) playersWonStatistics.get(3).getRoundsWon() / allPossibleRounds) * 100),
-                new PlayerChance(((double) playersWonStatistics.get(4).getRoundsWon() / allPossibleRounds) * 100),
-                new PlayerChance(((double) playersWonStatistics.get(5).getRoundsWon() / allPossibleRounds) * 100),
+                ((double) playersWonStatistics.get(0).getRoundsWon() / allPossibleRounds) * 100,
+                ((double) playersWonStatistics.get(1).getRoundsWon() / allPossibleRounds) * 100,
+                ((double) playersWonStatistics.get(2).getRoundsWon() / allPossibleRounds) * 100,
+                ((double) playersWonStatistics.get(3).getRoundsWon() / allPossibleRounds) * 100,
+                ((double) playersWonStatistics.get(4).getRoundsWon() / allPossibleRounds) * 100,
+                ((double) playersWonStatistics.get(5).getRoundsWon() / allPossibleRounds) * 100,
                 combinationsWonStatistics
                         .entrySet()
                         .stream()
