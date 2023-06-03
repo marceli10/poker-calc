@@ -4,7 +4,7 @@ import './App.css';
 import DealerHand from './components/dealer-hand/DealerHand';
 import RecButton from './components/rec-button/RecButton';
 import axios from "axios";
-import _ from "lodash";
+import _, {isEmpty} from "lodash";
 
 
 const initialPlayersState = {
@@ -174,7 +174,9 @@ type RequestBody = {
     fourthPlayer: PlayerHandData,
     fifthPlayer: PlayerHandData,
     sixthPlayer: PlayerHandData,
-    cardsOnTable?: CardData[]
+    cardsOnTable?: {
+        cards: CardData[]
+    }
 };
 
 type ChanceStatistics = {
@@ -200,7 +202,7 @@ type ChanceStatistics = {
 function App() {
 
     const [cardsOnTable, setCardsOnTable] = useState(initialCardsOnTableState);
-    const [players, setPlayers] = useState(initialPlayersState);
+    const [players, setPlayers] = useState(initialPlayersStateWithValues);
     const [playersChances, setPlayersChances] = useState<ChanceStatistics>();
     const handleDealerCardChange = (cardIndex: number, value: string, color: string) => {
         setCardsOnTable(prevCards => {
@@ -234,11 +236,11 @@ function App() {
     const handleCalculate = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const cardsOnTableToSend: CardData[] = cardsOnTable.cards.filter(cards => cards.color && cards.value);
-        const requestBody: RequestBody = {
+        const requestBody = {
             ...players,
-            cardsOnTable: !_.isEmpty(cardsOnTableToSend) ? cardsOnTableToSend : undefined
+            cardsOnTable: !_.isEmpty(cardsOnTableToSend) ? {cards: cardsOnTableToSend} : undefined
         };
-
+        console.log(requestBody);
         await axios.post('http://localhost:8080/api/poker-calc', requestBody)
             .then(response => setPlayersChances(response.data))
     }
