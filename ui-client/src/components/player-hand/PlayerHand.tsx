@@ -19,9 +19,10 @@ interface PlayerHandProps {
     secondCard: CardData;
     handleCardClick: Function;
     player: string;
+    chances: number;
 }
 
-const PlayerHand: React.FC<PlayerHandProps> = ({ playerName, firstCard, secondCard, handleCardClick, player }) => {
+const PlayerHand: React.FC<PlayerHandProps> = ({playerName, firstCard, secondCard, handleCardClick, player, chances}) => {
 
     return (
         <div className="player-hand">
@@ -35,7 +36,7 @@ const PlayerHand: React.FC<PlayerHandProps> = ({ playerName, firstCard, secondCa
                     <Card src={`${secondCard.color}_${secondCard.value}.svg`} player={player} card='secondCard' handleCardClick={handleCardClick}/>
                 </CardField>
             </div>
-            <p>Chance: </p>
+            <p>Chance: {chances.toFixed(2)}</p>
         </div>
     )
 }

@@ -261,6 +261,7 @@ function App() {
                     handleCardClick={handleCardClick}
                     playerName='Player 1'
                     player='firstPlayer'
+                    chances={playersChances?.firstPlayerChance}
                 />
 
                 <PlayerHand
@@ -277,6 +278,7 @@ function App() {
                     playerName='Player 3'
                     handleCardClick={handleCardClick}
                     player='thirdPlayer'
+                    chances={playersChances?.thirdPlayerChance}
                 />
 
                 <PlayerHand
@@ -285,6 +287,7 @@ function App() {
                     playerName='Player 4'
                     handleCardClick={handleCardClick}
                     player='fourthPlayer'
+                    chances={playersChances?.fourthPlayerChance}
                 />
 
                 <PlayerHand
@@ -293,6 +296,7 @@ function App() {
                     playerName='Player 5'
                     handleCardClick={handleCardClick}
                     player='fifthPlayer'
+                    chances={playersChances?.fifthPlayerChance}
                 />
 
                 <PlayerHand
@@ -301,38 +305,13 @@ function App() {
                     playerName='Player 6'
                     handleCardClick={handleCardClick}
                     player='sixthPlayer'
+                    chances={playersChances?.sixthPlayerChance}
                 />
 
             </div>
             <div className='button-container'>
                 <RecButton handleClick={handleCalculate}>Calculate</RecButton>
             </div>
-
-            {playersChances && (
-             <div>
-                 Players:
-                <ul>
-                    <li>
-                        first player: {playersChances.firstPlayerChance}
-                    </li>
-                    <li>
-                        second player: {playersChances.secondPlayerChance}
-                    </li>
-                    <li>
-                        third player: {playersChances.thirdPlayerChance}
-                    </li>
-                    <li>
-                        fourth player: {playersChances.fourthPlayerChance}
-                    </li>
-                    <li>
-                        fifth player: {playersChances.fifthPlayerChance}
-                    </li>
-                    <li>
-                        sixth player: {playersChances.sixthPlayerChance}
-                    </li>
-                </ul>
-             </div>
-            )}
         </div>
     );
 }
