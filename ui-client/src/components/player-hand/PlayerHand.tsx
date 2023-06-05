@@ -36,7 +36,8 @@ const PlayerHand: React.FC<PlayerHandProps> = ({playerName, firstCard, secondCar
                     <Card src={`${secondCard.color}_${secondCard.value}.svg`} player={player} card='secondCard' handleCardClick={handleCardClick}/>
                 </CardField>
             </div>
-            <p>Chance: {chances.toFixed(2)}</p>
+            <p>Chance: {
+                chances!==undefined&&chances.toFixed(2)}</p>
         </div>
     )
 }

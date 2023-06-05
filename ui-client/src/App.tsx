@@ -242,7 +242,7 @@ function App() {
         };
         console.log(requestBody);
         await axios.post('http://localhost:8080/api/poker-calc', requestBody)
-            .then(response => setPlayersChances(response.data))
+            .then(response => {setPlayersChances(response.data);console.log(response.data)})
     }
 
     return (
@@ -270,6 +270,7 @@ function App() {
                     playerName='Player 2'
                     handleCardClick={handleCardClick}
                     player='secondPlayer'
+                    chances={playersChances?.secondPlayerChance}
                 />
 
                 <PlayerHand
